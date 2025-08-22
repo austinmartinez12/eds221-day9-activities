@@ -37,7 +37,7 @@ mack_creek_lengths <- mack_creek_vertebrates %>%
   clean_names() %>% 
   select(year:sampledate) %>% 
   filter(section == "CC") %>% 
-  mutate(across(where(is.character, tolower))) %>% 
+  mutate(across(where(is.character), tolower)) %>%
   drop_na(species) %>% 
   group_by(species) %>% 
   summarize(mean_length_cm = mean(length1, na.rm = TRUE),
@@ -54,8 +54,8 @@ Identify what is causing the problem in the code below (there's only one thing).
 mack_creek_vertebrates %>% 
   clean_names() %>% 
   filter(species == "ONCL") %>% 
-  ggplot(aes(x = length1, y = weight)) +
-         geom_point(aes(shape = 12), color = "purple") +
+  ggplot(aes(x = length1, y = weight, scale_shape_binned = 12)) +
+         geom_point(aes(size = 12), color = "purple") +
          theme_minimal() +
          labs(x = "Cutthroat trout length (cm)",
               y = "Weight (g)")
